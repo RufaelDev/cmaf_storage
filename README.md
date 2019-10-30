@@ -81,22 +81,22 @@ _How can I identify CMAF switching sets from tracks in the CMAF storage format ?
 CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching 
 sets implicitly based on the CMAF track format constraints.  Tracks with the same source content and same codec fulfilling 
 the switching set constraints can be implicitly derived as being part of the same switching set. 
-CMAF storage format may define additional  signalling to identify switchingset grouping of track files.
+CMAF storage format may define additional signalling to identify switchingset grouping of track files.
 
 _How can I identify selection sets and/or aligned switching sets from CMAF Tracks ?_ 
 
-CMAF does define requirements 7.3.4.4. for aligned switching sets, but these are harder to use for detecting and idenifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storafge format may define additional signalling to identify aligned switchingset grouping of track files.
+CMAF does define requirements 7.3.4.4. for aligned switching sets, but these are harder to use for detecting and idenifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storage format may define additional signalling to identify aligned switchingset grouping of track files and selection set grouping of track files.
 
 _How can I identify CMAF tracks based on the same source content ?_
 
-Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF Track file may define content identifiers. CMAF storage format additional signalling to identify source content. 
+Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF storage format may define addtional content identifiers to be used in track files. Such identifiers could be used to detect the source content.
 
 _How can CMAF stored content be delivered ?_ 
 
 A manifest will be needed to deliver the content. One way to produce the manifest is using a DASH/HLS packager tool. 
 Based on CMAF storage format additional tools may be developed for generating manifests from source content. 
 For example HLS and DASH manifests could be generated automatically for a stored CMAF presentation. Alternatively, 
-CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest]. 
+annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest]. 
 
 [CMAF] ISO/IEC 23000-19:2018
 Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media
