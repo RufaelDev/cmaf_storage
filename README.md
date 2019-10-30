@@ -60,25 +60,26 @@ Root folder
 …….                CMAF_switching_set_id_6     // webvtt French
 …….                               timed-text-wvtt-fr.cmft
 </pre>
-## CMAF Storage Format: additional standardization for storage using CMAF track files
+## CMAF Storage Format: storage using CMAF track files
 
-The CMAF Storage format will define best practices for storing CMAF content on disk. 
+The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
 A simple manifest for storing content may be defined if deemed necessary. 
-In addition, annotation of tracks with metadata may be defined to make it easy to identify the switchingset, 
+In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switchingset, 
 selectionset or source content that a CMAF track belongs to from individual track files. 
 
-## Questions and Answers regarding CMAF Storage format 
+## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets in the CMAF storage format ?_
 
-CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching sets implicitly based on the CMAF track format constraints.  Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set.
+CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching sets implicitly based on the CMAF track format constraints.  Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. CMAF storage format may define additional 
+signalling to identify switchingset grouping of track files.
 
 _How can I identify selection sets and/or aligned switching sets in stored CMAF Tracks ?_ 
 
-CMAF does define requirements 7.3.4.4. for aligned switching sets, but these are harder to use for detecting them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs).
+CMAF does define requirements 7.3.4.4. for aligned switching sets, but these are harder to use for detecting and idenifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storafge format may define additional signalling to identify aligned switchingset grouping of track files.
 
 _How can I identify CMAF tracks contain the same source content ?_
 
-Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF Track file may define content identifiers.
+Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF Track file may define content identifiers. CMAF storage format additional signalling to identify source content. 
 
 
 [CMAF] ISO/IEC 23000-19:2018
