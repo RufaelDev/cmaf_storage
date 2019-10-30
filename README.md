@@ -91,6 +91,14 @@ _How can I identify CMAF tracks contain the same source content ?_
 
 Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF Track file may define content identifiers. CMAF storage format additional signalling to identify source content. 
 
+_How can CMAF stored content be delivered ?_ 
+
+A manifest will be needed to deliver the content. One way to produce the manifest is using a DASH/HLS packager tool. 
+Based on CMAF storage format additional tools may be developed for generating manifests from source content. 
+For example HLS and DASH manifests could be generated automatically for a stored CMAF presentation. Alternatively, 
+CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest]. 
 
 [CMAF] ISO/IEC 23000-19:2018
 Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media
+
+[CMAF Ingest] DASH-IF Live ingest protocol https://dashif-documents.azurewebsites.net/Ingest/master/DASH-IF-Ingest.html
