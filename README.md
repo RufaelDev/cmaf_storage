@@ -24,7 +24,7 @@ combining content in a manifest does not require de-multiplexing of content.
 
 # Proposed CMAF Storage Format 
 The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format.
-
+<pre>
 Root folder
        CMAF_presentation_id_1                      // e.g. batman movie
               CMAF_selection_set_id_1              // e.g. audio
@@ -46,7 +46,7 @@ Root folder
                                       timed-text-wvtt-en.cmft
 …….                CMAF_switching_set_id_6     // webvtt French
 …….                               timed-text-wvtt-fr.cmft
-
+</pre>
 # CMAF Storage Format: additional standardization for storage using CMAF track files
 The CMAF Storage format will define best practices for storing CMAF content on disk. 
 A simple manifest for storing content may be defined if deemed necessary. 
