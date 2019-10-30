@@ -2,8 +2,12 @@
 ## Author: Rufael Mekuria rufael@unified-streaming.com
 ## CMAF Storage Format 
 
-Common Media Application Track Format (CMAF) [CMAF] standardized by ISO/IEC as 23000-19:2018 is a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, the CMAF track file (which is a CMAF track stored as a file) can also be a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
-CMAF Media Objects A brief and high-level description of CMAF constructs is given. For more detailed definitions we refer to ISO/IEC as 23000-19:2018 clause 7.
+Common Media Application Track Format (CMAF) [CMAF] is standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, the CMAF track file, which is a CMAF track stored as a file, can also be a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
+
+## CMAF Track formatting constructs
+
+CMAF Media Objects A brief and high-level description of CMAF constructs is given.
+For more detailed definitions we refer to ISO/IEC as 23000-19:2018 clause 7.
 
 **CMAF Header**: an ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
 
@@ -60,18 +64,22 @@ Root folder
 …….                CMAF_switching_set_id_6     // webvtt French
 …….                               timed-text-wvtt-fr.cmft
 </pre>
+
 ## CMAF Storage Format: storage using CMAF track files
 
 The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
+The example approach in table 1 can be presented as a guideline with directives for naming the folders and files.
 A simple manifest for storing content may be defined if deemed necessary. 
 In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switchingset, 
-selectionset or source content that a CMAF track belongs to from individual track files. 
+selection set or source content that a CMAF track belongs to from individual track files. 
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets in the CMAF storage format ?_
 
-CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching sets implicitly based on the CMAF track format constraints.  Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. CMAF storage format may define additional 
-signalling to identify switchingset grouping of track files.
+CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching 
+sets implicitly based on the CMAF track format constraints.  Tracks with the same source content and same codec fulfilling 
+the switching set constraints can be implicitly derived as being part of the same switching set. 
+CMAF storage format may define additional  signalling to identify switchingset grouping of track files.
 
 _How can I identify selection sets and/or aligned switching sets in stored CMAF Tracks ?_ 
 
