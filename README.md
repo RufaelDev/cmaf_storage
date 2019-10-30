@@ -1,12 +1,12 @@
 # Document name: CMAF Storage Format
 ## Author: Rufael Mekuria rufael@unified-streaming.com
-## CMAF Storage Format 
+# CMAF Storage Format 
 
-Common Media Application Track Format (CMAF) [CMAF] is standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, the CMAF track file, which is a CMAF track stored as a file, can also be a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
+Common Media Application Track Format (CMAF) [CMAF] is standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
 
-## CMAF Track formatting constructs
+## CMAF Media Objects 
 
-CMAF Media Objects A brief and high-level description of CMAF constructs is given.
+A brief and high-level description of CMAF constructs is given.
 For more detailed definitions we refer to ISO/IEC as 23000-19:2018 clause 7.
 
 **CMAF Header**: an ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
