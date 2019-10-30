@@ -61,8 +61,10 @@ Root folder
                CMAF_selection_set_id_3              // e.g. subtitles
                        CMAF_switching_set_id_5     // webvtt English 
                                       timed-text-wvtt-en.cmft
-…….                CMAF_switching_set_id_6     // webvtt French
-…….                               timed-text-wvtt-fr.cmft
+                       CMAF_switching_set_id_6     // webvtt French
+                                        timed-text-wvtt-fr.cmft
+......
+......
 </pre>
 
 ## CMAF Storage Format: storage using CMAF track files
