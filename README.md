@@ -1,17 +1,28 @@
 # Document name: CMAF Storage Format
 ## Author: Rufael Mekuria rufael@unified-streaming.com
 ## CMAF Storage Format 
-Common Media Application Track Format (CMAF) standardized by ISO/IEC as 23000-19:2018 is a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, the CMAF track file (which is a CMAF track stored as a file) can also be a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
+
+Common Media Application Track Format (CMAF) [CMAF] standardized by ISO/IEC as 23000-19:2018 is a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, the CMAF track file (which is a CMAF track stored as a file) can also be a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it later to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
 CMAF Media Objects A brief and high-level description of CMAF constructs is given. For more detailed definitions we refer to ISO/IEC as 23000-19:2018 clause 7.
+
 **CMAF Header**: an ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
+
 **CMAF Chunk**: A MovieFragmentBox indexing samples and MovieDataBox containing the samples. 
+
 **CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample
+
 **CMAF Segment**: One or more CMAF Fragments
+
 **CMAF Track**: A CMAF Header followed by one or more CMAF Fragments
+
 **CMAF Track file**: CMAF Track stored as a file
+
 **CMAF Switching Set**: one or more CMAF Tracks that a client can switch between. The tracks fullfill the switching set constraints defined in CMAF.
+
 **CMAF Aligned Switching Set**: one or more CMAF Switching sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned switching set constraints defined in CMAF.
+
 **CMAF Selection Set**: one or more switching sets containing different aspects of the presentation (i.e. different codec, different language)
+
 **CMAF Presentation**: combination of one or more CMAF switching sets, containing different types of media such as audio, video, subtitles etc. 
 
 ## Storing CMAF Media Objects 
@@ -68,3 +79,7 @@ CMAF does define requirements 7.3.4.4. for aligned switching sets, but these are
 _How can I identify CMAF tracks contain the same source content ?_
 
 Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF Track file may define content identifiers.
+
+
+[CMAF] ISO/IEC 23000-19:2018
+Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media
