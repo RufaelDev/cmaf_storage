@@ -2,7 +2,9 @@
 ## Author: Rufael Mekuria rufael@unified-streaming.com
 # CMAF Storage Format 
 
-Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to later stream it to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. One of the key aspects to overcome with this format is the lack of explicit grouping of CMAF tracks and the absence of multiplexing in CMAF track files.
+Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to stream it in a later stage to different device types. 
+
+This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. One of the key aspects to overcome with this format is the lack of explicit grouping of CMAF tracks and the absence of multiplexing in CMAF track files. 
 
 ## Example Workflows and use cases for CMAF Storage format
 
@@ -17,11 +19,13 @@ Example Workflows and use cases using the CMAF storage format include:
 
 In each of such workflows a simple manifest can be created to identify the location of source content
 and the grouping of tracks in CMAF constructs. Other tools could be used to read and process the CMAF 
-content for delivery and annotate cmaf tracks with additional information like bit-rate language and grouping identifiers. 
+content for delivery and annotate cmaf tracks with additional information like bit-rate, language and grouping identifiers
+if this information was not yet available in the track files. 
+
 The CMAF track file structure itself structure provides fast and granular access by its fragmented file structure and 
 the segment index box (sidx).
 
-## CMAF Media Objects 
+## CMAF Media Objects Overview
 
 A brief and high-level description of CMAF constructs is given.
 For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
@@ -47,21 +51,27 @@ For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 **CMAF Presentation**: Combination of one or more CMAF Switching Sets, containing different types of media such as audio, video, subtitles, etc. 
 
 ## Storing CMAF Media Objects 
+
 The main construct for storing content defined in CMAF is the CMAF track file. 
 As CMAF track files are not multiplexed, storing content using CMAF would imply storing each media track in a separate file. 
 CMAF is designed in a way that the manifest file can combine different 
-CMAF resources such as CMAF track files (instead of the file format itself as in MP4). Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources in a single CMAF presentation. By storing content as CMAF track files, 
-combining content in a manifest does not require demultiplexing of content. Combining CMAF track files this way is referred to as late 
-binding in CMAF.
+CMAF resources such as CMAF track files (instead of the file format itself as in MP4 that can multiplex different tracks).
+
+Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources. 
+Combining CMAF track files in this way is referred to as late binding in CMAF.
 
 ## CMAF Storage Format: storage using CMAF track files
 
-The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
-The next section adds additional constraints on CMAF Boxes and fields for efficient storage.
-The example approach in Table 1 and Table 2 can be presented as a guideline with directives for naming the folders and files.
-A simple manifest for storing content may be defined, if deemed necessary, an example is given. 
-In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
-selection set or source content that a CMAF track belongs to from individual track files. 
+The CMAF Storage format defines best practices for storing CMAF content on disk using CMAF track files. 
+
+Firstly, the next section adds additional constraints on CMAF Boxes and fields for efficient self contained storage.
+
+Table 1 and Table 2 presents example guidelines for stroring CMAF presentations using file naming and directory naming. 
+
+A simple manifest for storing CMAF content wad defined, as an example. 
+
+In addition, annotation of CMAF tracks with metadata may be needed to make it easy to identify the switching set, 
+selection set or source content that a CMAF track belongs to from individual track files without a manifest. 
 
 ## CMAF Storage Format: constraints on optional CMAF boxes and fields in tracks
 
@@ -151,6 +161,7 @@ allowing the filename/directory structure to be generated based on internal trac
 A possible XML schema for storing the CMAF Stored files could be: 
 
 
+_Table 3: storage format example xml naming scheme_
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cmaf:storage:2019" targetNamespace="urn:cmaf:storage:2019">
@@ -202,6 +213,8 @@ A possible XML schema for storing the CMAF Stored files could be:
 
 
 And the given example from Table 2 would be 
+
+_Table 4 example xml representation of CMAF stored content in Table 2_
 ```xml
 <pre>
 <?xml version="1.0" encoding="utf-8"?>
