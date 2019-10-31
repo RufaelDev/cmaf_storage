@@ -37,7 +37,45 @@ CMAF resources such as CMAF track files (instead of the file format itself as in
 combining content in a manifest does not require demultiplexing of content. Combining CMAF track files this way is referred to as late 
 binding in CMAF.
 
-## Proposed CMAF Storage Format 
+## CMAF Storage Format: storage using CMAF track files
+
+The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
+The next section adds additional constraints on CMAF Boxes and fields for efficient storage.
+The example approach in Table 1 and Table 2 can be presented as a guideline with directives for naming the folders and files.
+A simple manifest for storing content may be defined, if deemed necessary, an example is given. 
+In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
+selection set or source content that a CMAF track belongs to from individual track files. 
+
+## CMAF Storage Format: constraints on optional CMAF boxes and fields
+
+The CMAF track files have optional boxes and fields. For archiving usage of these boxes is recommended in the following ways. 
+
+**sidx**: (segment index): should (must) be present when storing track files.
+
+**prft**: not needed, this does not add much compared to other times in the trackfile about when the media was created.
+
+**emsg**: recommended, consider specific schemes of emsg for inserting metadata or information about the program. emsg will be duplicated cross switching sets. Some emsg may contain program information or metadata or splice point information. Alternatively, 
+emsg information could be filtered out and stored in a separate track.
+
+**styp**: optional, styp may be stored in case this benefits your streaming workflow. This box is optional in CMAF
+
+**kind**: optional box to signal the role of the track, for example an mpeg dash role urn:mpeg:dash:role:2011 or a w3c html5 kind role. 
+
+Recommended usage of kind box in udta to signal track role. 
+
+**btrt**: this box can be put in the sample entry (stsd) to store the bit-rate of the track. This information is useful to store as 
+it can be used later in manifests for example. 
+
+**elng**: extended language tag may be used to signal the language of the CMAF Track 
+
+**mdhd**: mdhd box should be used to signal the language of the CMAF track
+
+ **sinf**: This optional box can signal the encryption scheme and default encryption by containing schm box, 
+ and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
+ level encryption instead. Only use common encryption for streaming. **Proposal**: sinf box shall not be present.
+
+## CMAF Storage using directory and filename structures
+
 The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
 
 _Table 1: storage format using directory structuring_
@@ -79,7 +117,7 @@ Root folder
              presid1_ssid1_swsid2_rep0_audio-he-aac-64k.cmfa     // he-aac audio
              presid1_ssid2_swsid3_rep0_video-avc-400k.cmfv       // video avc
              presid1_ssid2_swsid3_rep1_video-avc-800k.cmfv
-             presid1_ssid2_swsid3_rep2_video-avc-1200k.cmf
+             presid1_ssid2_swsid3_rep2_video-avc-1200k.cmfv
              presid1_ssid2_swsid4_rep0_video-hevc-1200k.cmfv     // video hevc
              presid1_ssid2_swsid4_rep1_video-hevc-1600k.cmfv     // video hevc
              presid1_ssid3_swsid5_rep0_timed-text-wvtt-en.cmft   // webvtt English 
@@ -91,36 +129,139 @@ Root folder
 _Open question_: would it make sense to be able to annotate the track files themselves, 
 allowing the filename/directory structure to be generated based on internal track file annotation ?
 
-## CMAF Storage Format: storage using CMAF track files
+## CMAF Storage using xml schema for CMAF
 
-The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
-The example approach in Table 1 and Table 2 can be presented as a guideline with directives for naming the folders and files.
-A simple manifest for storing content may be defined, if deemed necessary. 
-In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
-selection set or source content that a CMAF track belongs to from individual track files. 
+A possible XML schema for storing the CMAF Stored files could be: 
 
-## CMAF Storage Format: constraints on optional boxes 
-
-The CMAF track files can have optional boxes. 
-
-**sidx**: (segment index): should (must) be present when storing track files.
-
-**prft**: optional, what does this add compared to other times in the trackfile about when the media was created ? 
-
-**emsg**: optional, does it make sense for storing cmaf content ? emsg would need to be duplicated across switching sets, 
-typically requirements will be different for different types of event messages.
-
-**styp**: optional, does it make sense for storing cmaf content ? 
-
-**kind**: optional box to signal the role of the track, for example an mpeg dash role urn:mpeg:dash:role:2011 or a w3c html5 role 
-  about:html-kind
+<pre>
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cmaf:storage:2019" targetNamespace="urn:cmaf:storage:2019">
+	<xs:annotation>
+		<xs:appinfo>CMAF Content Storage Description</xs:appinfo>
+		<xs:documentation xml:lang="en">
+        This Schema defines a simple description of CMAF stored content by grouping track files
+        </xs:documentation>
+	</xs:annotation>
+    <!-- CMAF stored content -->
+	<xs:element name="CMAFStorage" type="CMAFStorageType"/>
+	<xs:element name="Presentation" type="PresentationType"/>
+       <xs:element name="SelectionSet" type="SelectionSetType"/>
+       <xs:element name="SwitchingSetType" type="SwitchingSetType"/>
+       <xs:element name="TrackFile" type="TrackFileType"/>
   
- **sinf**: This optional box can signal the encryption scheme and default encryption by containing schm box, 
- and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
- level encryption instead ? only use common encryption for streaming. **Proposal**: sinf box shall not be present.
+	<!-- CMAF XML Storage Type -->
+	<xs:complexType name="CMAFStorageType">
+		<xs:sequence>
+			<xs:element name="Presentation" type="PresentationType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Presentation -->
+	<xs:complexType name="PresentationType">
+		<xs:sequence>
+			<xs:element name="SelectionSet" type="SelectionSetType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SelectionSet -->
+	<xs:complexType name="SelectionSetType">
+		<xs:sequence>
+			<xs:element name="SwitchingSet" type="SwitchingSetType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- SwitchingSet -->
+	<xs:complexType name="SwitchingSetType">
+		<xs:sequence>
+			<xs:element name="TrackFile" type="TrackFileType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Track File -->
+	<xs:simpleType name="TrackFileType">
+    <xs:restriction base="xs:string">
+      <!-- insert characters allowed for file name and location-->
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+</pre>
 
-## Questions and Answers regarding CMAF Storage Format 
-_How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
+
+And the given example from Table 2 would be 
+
+<pre>
+<?xml version="1.0" encoding="utf-8"?>
+<CMAFStorage
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="urn:cmaf:storage:2019">
+  <Presentation>
+    <SelectionSet>
+      <SwitchingSet>
+        <TrackFile>
+            presid1_ssid1_swsid1_rep0_audio-aac-64k.cmfa
+        </TrackFile>
+        <TrackFile>
+            presid1_ssid1_swsid1_rep0_audio-aac-128k.cmfa
+        </TrackFile>
+      </SwitchingSet>
+      <SwitchingSet>
+        <TrackFile>
+            presid1_ssid1_swsid2_rep0_audio-he-aac-64k.cmfa
+        </TrackFile>
+        </SwitchingSet>
+    </SelectionSet>
+    <SelectionSet> 
+      <SwitchingSet>
+        <TrackFile>
+            presid1_ssid2_swsid3_rep0_video-avc-400k.cmfv
+        </TrackFile>
+        <TrackFile>
+            presid1_ssid2_swsid3_rep0_video-avc-800k.cmfv
+        </TrackFile>
+        <TrackFile>
+            presid1_ssid2_swsid3_rep0_video-avc-1200k.cmfv
+        </TrackFile>
+       </SwitchingSet>
+       <SwitchingSet>
+          <TrackFile>
+            presid1_ssid2_swsid4_rep0_video-hevc-1200k.cmfv
+          </TrackFile>
+          <TrackFile>
+             presid1_ssid2_swsid4_rep0_video-hevc-1600k.cmfv
+          </TrackFile>
+       </SwitchingSet>
+     </SelectionSet>
+     <SelectionSet>
+       <SwitchingSet>
+          <TrackFile>
+             presid1_ssid3_swsid5_rep0_timed-text-wvtt-en.cmft 
+          </TrackFile>
+       </SwitchingSet>
+       <SwitchingSet>
+          <TrackFile>
+               presid1_ssid3_swsid5_rep0_timed-text-wvtt-fr.cmft 
+          </TrackFile>
+       </SwitchingSet>
+     </SelectionSet>
+    </Presentation>
+</CMAFStorage>
+</pre>
+
+Other more extensive schemes may be defined or existing schemes like MPEG DASH.
+
+## Example Workflows and use cases for CMAF Storage format
+
+Example Workflows and use cases using the CMAF storage format include: 
+
+1. Annotation of large asset collections stored on disk or in the cloud 
+2. Efficient storage of asset collections stored on disk or in the cloud by using single CMAF source format 
+3. On-the-fly packaging and or manifest generation for CMAF stored content 
+4. Sub-clipping and stitching of CMAF stored content 
+5. Searching and identifying content stored on disk or in the cloud
+6. Granular access to media stored on disk or in cloud
+
+In each of such workflows simple manifest can be created to identify the location of source content
+and the grouping of tracks in CMAF constructs. Other tools could be used to read and process the CMAF 
+content for delivery. The CMAF file itself structure provides granular access by its fragmented file structure.
+
+## Additional Questions and Answers regarding CMAF Track Storage Format in general
+_How can I identify CMAF switching sets from tracks in the CMAF Tracks?_
 
 CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching sets implicitly based on the CMAF track format constraints. Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. 
 CMAF storage format may define additional (in-band or out-of-band) signalling to identify switchingset grouping of track files.
@@ -129,7 +270,7 @@ _How can I identify selection sets and/or aligned switching sets from CMAF Track
 
 CMAF does define requirements 7.3.4.4 for aligned switching sets, but these are harder to use for detecting and identifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storage format may define additional signalling to identify aligned switching set grouping of track files and selection set grouping of track files.
 
-_How can I identify CMAF tracks based on the same source content ?_
+_How can I identify if CMAF tracks are based on the same source content ?_
 
 Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF storage format may define additional content identifiers to be used in track files. Such identifiers could be used to detect the source content.
 
