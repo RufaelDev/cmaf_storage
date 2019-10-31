@@ -87,7 +87,7 @@ Root folder
 </pre>
 
 _Open question_: would it make sense to be able to annotate the track files themselves, 
-allowing the filename/directory structure to be generated based on track files ?
+allowing the filename/directory structure to be generated based on internal track file annotation ?
 
 ## CMAF Storage Format: storage using CMAF track files
 
