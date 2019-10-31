@@ -2,7 +2,23 @@
 ## Author: Rufael Mekuria rufael@unified-streaming.com
 # CMAF Storage Format 
 
-Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to later stream it to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. 
+Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit content that is stored with the objective to later stream it to different device types. This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. One of the key aspects to overcome with this format is the lack of explicit grouping of CMAF tracks and the absence of multiplexing in CMAF track files.
+
+## Example Workflows and use cases for CMAF Storage format
+
+Example Workflows and use cases using the CMAF storage format include: 
+
+1. Annotation of large asset collections stored on disk or in the cloud 
+2. Efficient storage of asset collections stored on disk or in the cloud by using a single CMAF source format 
+3. On-the-fly packaging or manifest generation for CMAF stored content 
+4. Sub-clipping and stitching of CMAF stored content 
+5. Searching and identifying content stored on disk or in the cloud
+6. Fast and Granular access to media stored on disk or in cloud
+
+In each of such workflows a simple manifest can be created to identify the location of source content
+and the grouping of tracks in CMAF constructs. Other tools could be used to read and process the CMAF 
+content for delivery and annotate cmaf tracks with information like bit-rate language and grouping ids. 
+The CMAF file itself structure provides fast and granular access by its fragmented file structure.
 
 ## CMAF Media Objects 
 
@@ -46,7 +62,7 @@ A simple manifest for storing content may be defined, if deemed necessary, an ex
 In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
 selection set or source content that a CMAF track belongs to from individual track files. 
 
-## CMAF Storage Format: constraints on optional CMAF boxes and fields
+## CMAF Storage Format: constraints on optional CMAF boxes and fields in tracks
 
 The CMAF track files have optional boxes and fields. For archiving usage of these boxes is recommended in the following ways. 
 
@@ -74,7 +90,7 @@ it can be used later in manifests for example.
  and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
  level encryption instead. Only use common encryption for streaming. **Proposal**: sinf box shall not be present.
 
-## CMAF Storage using directory and filename structures
+## CMAF Storage using track files in a directory and filename structure
 
 The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
 
@@ -244,22 +260,7 @@ And the given example from Table 2 would be
 </CMAFStorage>
 ```
 
-Other more extensive schemes may be defined or existing schemes like MPEG DASH.
 
-## Example Workflows and use cases for CMAF Storage format
-
-Example Workflows and use cases using the CMAF storage format include: 
-
-1. Annotation of large asset collections stored on disk or in the cloud 
-2. Efficient storage of asset collections stored on disk or in the cloud by using single CMAF source format 
-3. On-the-fly packaging and or manifest generation for CMAF stored content 
-4. Sub-clipping and stitching of CMAF stored content 
-5. Searching and identifying content stored on disk or in the cloud
-6. Granular access to media stored on disk or in cloud
-
-In each of such workflows simple manifest can be created to identify the location of source content
-and the grouping of tracks in CMAF constructs. Other tools could be used to read and process the CMAF 
-content for delivery. The CMAF file itself structure provides granular access by its fragmented file structure.
 
 ## Additional Questions and Answers regarding CMAF Track Storage Format in general
 _How can I identify CMAF switching sets from tracks in the CMAF Tracks?_
