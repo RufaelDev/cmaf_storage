@@ -86,6 +86,7 @@ Root folder
 ......
 </pre>
 
+
 _Open question_: would it make sense to be able to annotate the track files themselves, 
 allowing the filename/directory structure to be generated based on internal track file annotation ?
 
@@ -102,9 +103,12 @@ selection set or source content that a CMAF track belongs to from individual tra
 The CMAF track files can have optional boxes. 
 
 **sidx**: (segment index): should (must) be present when storing track files.
+
 **prft**: optional, what does this add compared to other times in the trackfile about when the media was created ? 
+
 **emsg**: optional, does it make sense for storing cmaf content ? emsg would need to be duplicated across switching sets, 
 typically requirements will be different for different types of event messages.
+
 **styp**: optional, does it make sense for storing cmaf content ? 
 
 ## Questions and Answers regarding CMAF Storage Format 
