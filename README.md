@@ -134,6 +134,8 @@ allowing the filename/directory structure to be generated based on internal trac
 A possible XML schema for storing the CMAF Stored files could be: 
 
 <pre>
+<code>
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cmaf:storage:2019" targetNamespace="urn:cmaf:storage:2019">
 	<xs:annotation>
@@ -180,6 +182,8 @@ A possible XML schema for storing the CMAF Stored files could be:
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
+```
+</code>
 </pre>
 
 
