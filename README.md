@@ -66,14 +66,14 @@ The CMAF Storage format defines best practices for storing CMAF content on disk 
 
 Firstly, the next section adds additional constraints on CMAF Boxes and fields for efficient self contained storage.
 
-Table 1 and Table 2 presents example guidelines for stroring CMAF presentations using file naming and directory naming. 
+Table 1 and Table 2 present example guidelines for storing CMAF presentations using file naming and directory naming. 
 
-A simple manifest for storing CMAF content wad defined, as an example. 
+A simple manifest for storing CMAF content was defined, following the organization structure of CMAF presentations. 
 
 In addition, annotation of CMAF tracks with metadata may be needed to make it easy to identify the switching set, 
-selection set or source content that a CMAF track belongs to from individual track files without a manifest. 
+selection set or source content that a CMAF track belongs to without using a manifest. 
 
-## CMAF Storage Format: constraints on optional CMAF boxes and fields in tracks
+## CMAF Storage Format: constraints on optional CMAF boxes and fields
 
 The CMAF track files have optional boxes and fields. For archiving usage of these boxes is recommended in the following ways. 
 
@@ -84,11 +84,11 @@ The CMAF track files have optional boxes and fields. For archiving usage of thes
 **emsg**: recommended, consider specific schemes of emsg for inserting metadata or information about the program. emsg will be duplicated cross switching sets. Some emsg may contain program information or metadata or splice point information. Alternatively, 
 emsg information could be filtered out and stored in a separate track.
 
-**styp**: optional, styp may be stored in case this benefits your streaming workflow. This box is optional in CMAF
+**styp**: optional, styp may be stored in case this benefits your streaming workflow. This box is optional in CMAF adn can be used 
+to identify segment types such as chunk, fragment, or random access.
 
 **kind**: optional box to signal the role of the track, for example an mpeg dash role urn:mpeg:dash:role:2011 or a w3c html5 kind role. 
-
-Recommended usage of kind box in udta to signal track role. 
+It is recommended to use the kind box in udta to signal track role as defined in [CMAF] 7.5.3. 
 
 **btrt**: this box can be put in the sample entry (stsd) to store the bit-rate of the track. This information is useful to store as 
 it can be used later in manifests for example. 
@@ -103,7 +103,7 @@ it can be used later in manifests for example.
 
 ## CMAF Storage using track files in a directory and filename structure
 
-The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
+The CMAF storage format stores all content as CMAF track files on disk ro in the cloud. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell as shown in Table 2.
 
 _Table 1: storage format using directory structuring_
 <pre>
@@ -156,7 +156,7 @@ Root folder
 _Open question_: would it make sense to be able to annotate the track files themselves, 
 allowing the filename/directory structure to be generated based on internal track file annotation ?
 
-## CMAF Storage using xml schema for CMAF
+## CMAF Storage using an xml schema for CMAF content
 
 A possible XML schema for storing the CMAF Stored files could be: 
 
@@ -274,6 +274,7 @@ _Table 4 example xml representation of CMAF stored content in Table 2_
 </CMAFStorage>
 ```
 
+This schema could be exanded to carry additional information about the presentation.
 
 
 ## Additional Questions and Answers regarding CMAF Track Storage Format in general
@@ -281,6 +282,8 @@ _How can I identify CMAF switching sets from tracks in the CMAF Tracks?_
 
 CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content you could identify switching sets implicitly based on the CMAF track format constraints. Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. 
 CMAF storage format may define additional (in-band or out-of-band) signalling to identify switchingset grouping of track files.
+It is better to use the switching set definitions form the original author instead of based on technical features, as to preserve
+the original author intent. This feature is supported by this storage format making the track grouping explicit.
 
 _How can I identify selection sets and/or aligned switching sets from CMAF Tracks ?_ 
 
@@ -288,14 +291,15 @@ CMAF does define requirements 7.3.4.4 for aligned switching sets, but these are 
 
 _How can I identify if CMAF tracks are based on the same source content ?_
 
-Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF storage format may define additional content identifiers to be used in track files. Such identifiers could be used to detect the source content.
+Due to storing tracks in separate files, it can be unclear if tracks are based on identical source content. Typically, the file name could give an identification of the source content. CMAF storage format may define additional content identifiers to be used in track files. Such identifiers could be used to detect the source of the content, or at least assert if it is the same for different tracks.
 
 _How can CMAF stored content be delivered ?_ 
 
 A manifest will be needed to deliver the content. One way to produce the manifest is using a DASH/HLS packager tool. 
-Based on CMAF storage format, additional tools may be developed for generating manifests from source content. 
+Based on the CMAF storage format, additional tools may be developed for generating manifests from source content. 
 For example, HLS and DASH manifests could be generated automatically for a stored CMAF presentation. Alternatively, 
-annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest]. 
+annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest].
+The CMAF storage defined XML format may be used to store CMAF presentations.
 
 [CMAF] ISO/IEC 23000-19:2018
 Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media
