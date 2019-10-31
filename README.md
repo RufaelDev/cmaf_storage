@@ -11,21 +11,22 @@ For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 
 **CMAF Header**: An ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
 
-**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. 
+**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. see CMAF 7.3.3.2
 
-**CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample.
+**CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample. see [CMAF] 7.3.2.4
 
-**CMAF Segment**: One or more CMAF Fragments.
+**CMAF Segment**: One or more CMAF Fragments. see [CMAF] 7.3.3.1 
 
-**CMAF Track**: A CMAF Header followed by one or more CMAF Fragments.
+**CMAF Track**: A CMAF Header followed by one or more CMAF Fragments. 7.3.2.2
 
-**CMAF Track file**: CMAF Track stored as a file.
+**CMAF Track file**: CMAF Track stored as a file. See [CMAF] 7.3.2.2
 
-**CMAF Switching Set**: One or more CMAF Tracks that a client can switch between. The tracks fullfill the Switching Set constraints defined in CMAF.
+**CMAF Switching Set**: One or more CMAF Tracks that a client can switch between. The tracks fullfill the Switching Set constraints defined in CMAF. see [CMAF] 7.3.4
 
-**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF.
+**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF. see [CMAF] 7.3.
 
-**CMAF Selection Set**: One or more Switching Sets containing different aspects of the presentation (e.g., different codec, different language, etc.).
+**CMAF Selection Set**: One or more Switching sets all of the same media type, e.g. audio, video, or subtitles. May contain 
+different codecs or languages. see [CMAF] 7.3.5
 
 **CMAF Presentation**: Combination of one or more CMAF Switching Sets, containing different types of media such as audio, video, subtitles, etc. 
 
