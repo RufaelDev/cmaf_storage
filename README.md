@@ -66,7 +66,7 @@ Root folder
 ......
 </pre>
 
-In the second table the presentation id, switching set id and selection set id are implicitly coded 
+In the second table the presentation id (presid), switching set id (swsid) and selection set id (ssid) are implicitly coded 
 in the filenames instead of the directory structure. In addition the representation numbers are added in the 
 filename aswell. 
 
