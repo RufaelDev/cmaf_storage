@@ -33,9 +33,7 @@ For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 The main construct for storing content defined in CMAF is the CMAF track file. 
 As CMAF track files are not multiplexed, storing content using CMAF would imply storing each media track in a separate file. 
 CMAF is designed in a way that the manifest file can combine different 
-CMAF resources such as CMAF track files (instead of the file format itself as in MP4). Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources in a single CMAF presentation. By storing content as CMAF track files, 
-combining content in a manifest does not require demultiplexing of content. Combining CMAF track files this way is referred to as late 
-binding in CMAF.
+CMAF resources such as CMAF track files (instead of the file format itself as in MP4). Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources in a single CMAF presentation. By storing content as CMAF track files, combining content in a manifest does not require demultiplexing of content. Combining CMAF track files this way is referred to as late binding in CMAF.
 
 ## Proposed CMAF Storage Format 
 The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
@@ -66,11 +64,11 @@ Root folder
 ......
 </pre>
 
-In the second table the presentation id, switching set id and selection set id are implicitly coded 
-in the filenames instead of the directory structure. In addition the representation numbers are added in the 
-filename aswell. 
+In Table 2, the presentation id, switching set id and selection set id are implicitly coded 
+in the filenames instead of the directory structure. In addition, the representation numbers are added in the 
+filenames as well. 
 
-_Table 2: storage format using naming structuring_
+_Table 2: storage format using naming convention_
 <pre>
 Root folder
        CMAF_presentation_id_1                                    // The Batman movie
@@ -88,10 +86,9 @@ Root folder
 </pre>
 
 
-_Open question_: would it make sense to be able to annotate the track files themselves, 
-allowing the filename/directory structure to be generated based on internal track file annotation ?
+_Editor's note_: Would it make sense to be able to annotate the track files themselves, allowing the filename/directory structure to be generated based on internal track file annotation?
 
-## CMAF Storage Format: storage using CMAF track files
+## CMAF Storage Format: Storage using CMAF track files
 
 The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
 The example approach in Table 1 and Table 2 can be presented as a guideline with directives for naming the folders and files.
@@ -99,18 +96,17 @@ A simple manifest for storing content may be defined, if deemed necessary.
 In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
 selection set or source content that a CMAF track belongs to from individual track files. 
 
-## CMAF Storage Format: constraints on optional boxes 
+## CMAF Storage Format: Constraints on optional boxes 
 
-The CMAF track files can have optional boxes. 
+The CMAF track files can have optional boxes:
 
-**sidx**: (segment index): should (must) be present when storing track files.
+**sidx**: Recommended. Editor's note: Should this rather be Required?
 
-**prft**: optional, what does this add compared to other times in the trackfile about when the media was created ? 
+**prft**: Optional. Editor's note: What does this add compared to other times in the trackfile about when the media was created? 
 
-**emsg**: optional, does it make sense for storing cmaf content ? emsg would need to be duplicated across switching sets, 
-typically requirements will be different for different types of event messages.
+**emsg**: Optional. Editor's note: Does it make sense for storing cmaf content? emsg would need to be duplicated across switching sets, typically requirements will be different for different types of event messages.
 
-**styp**: optional, does it make sense for storing cmaf content ? 
+**styp**: Optional. Editor's note: Does it make sense for storing cmaf content ? 
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
@@ -120,7 +116,7 @@ CMAF storage format may define additional (in-band or out-of-band) signalling to
 
 _How can I identify selection sets and/or aligned switching sets from CMAF Tracks ?_ 
 
-CMAF does define requirements 7.3.4.4 for aligned switching sets, but these are harder to use for detecting and identifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storage format may define additional signalling to identify aligned switching set grouping of track files and selection set grouping of track files.
+CMAF defines requirements in Section 7.3.4.4 for aligned switching sets, but these are harder to use for detecting and identifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storage format may define additional signalling to identify aligned switching set grouping of track files and selection set grouping of track files.
 
 _How can I identify CMAF tracks based on the same source content ?_
 
@@ -128,7 +124,7 @@ Due to storing tracks in separate files, it can be unclear if tracks are based o
 
 _How can CMAF stored content be delivered ?_ 
 
-A manifest will be needed to deliver the content. One way to produce the manifest is using a DASH/HLS packager tool. 
+A manifest is needed to deliver the content. One way to produce the manifest is to use a DASH/HLS packager tool. 
 Based on CMAF storage format, additional tools may be developed for generating manifests from source content. 
 For example, HLS and DASH manifests could be generated automatically for a stored CMAF presentation. Alternatively, 
 annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest]. 
