@@ -32,9 +32,10 @@ For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 ## Storing CMAF Media Objects 
 The main construct for storing content defined in CMAF is the CMAF track file. 
 As CMAF track files are not multiplexed, storing content using CMAF would imply storing each media track in a separate file. 
-Late Binding of CMAF Media: CMAF is designed in a way that the manifest file can combine different 
-CMAF resources such as CMAF track files. Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources in a single CMAF presentation. By storing content as CMAF track files, 
-combining content in a manifest does not require demultiplexing of content. 
+CMAF is designed in a way that the manifest file can combine different 
+CMAF resources such as CMAF track files (instead of the file format itself as in MP4). Based on a single set of CMAF resources different manifests can reference different combinations of CMAF resources in a single CMAF presentation. By storing content as CMAF track files, 
+combining content in a manifest does not require demultiplexing of content. Combining CMAF track files this way is referred to as late 
+binding in CMAF.
 
 ## Proposed CMAF Storage Format 
 The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
