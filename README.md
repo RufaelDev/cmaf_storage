@@ -133,8 +133,7 @@ allowing the filename/directory structure to be generated based on internal trac
 
 A possible XML schema for storing the CMAF Stored files could be: 
 
-<pre>
-<code>
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:cmaf:storage:2019" targetNamespace="urn:cmaf:storage:2019">
@@ -183,12 +182,10 @@ A possible XML schema for storing the CMAF Stored files could be:
   </xs:simpleType>
 </xs:schema>
 ```
-</code>
-</pre>
 
 
 And the given example from Table 2 would be 
-
+```xml
 <pre>
 <?xml version="1.0" encoding="utf-8"?>
 <CMAFStorage
@@ -245,7 +242,7 @@ And the given example from Table 2 would be
      </SelectionSet>
     </Presentation>
 </CMAFStorage>
-</pre>
+```
 
 Other more extensive schemes may be defined or existing schemes like MPEG DASH.
 
