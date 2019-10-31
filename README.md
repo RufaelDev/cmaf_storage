@@ -25,7 +25,7 @@ For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 
 **CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF. see [CMAF] 7.3.
 
-**CMAF Selection Set**: One or more Switching sets all of the same media type, e.g. audio, video, or subtitles. Different Switching sets in a selection set may use different codecs or languages. see [CMAF] 7.3.5
+**CMAF Selection Set**: One or more Switching sets all of the same media type, e.g. audio, video, or subtitles. Different Switching sets in a selection set may use different codecs or languages other aspects of a presentation. see [CMAF] 7.3.5
 
 **CMAF Presentation**: Combination of one or more CMAF Switching Sets, containing different types of media such as audio, video, subtitles, etc. 
 
