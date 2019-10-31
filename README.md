@@ -82,7 +82,7 @@ Root folder
              presid1_ssid2_swsid4_rep0_video-hevc-1200k.cmfv     // video hevc
              presid1_ssid2_swsid4_rep1_video-hevc-1600k.cmfv     // video hevc
              presid1_ssid3_swsid5_rep0_timed-text-wvtt-en.cmft   // webvtt English 
-             presid1_ssid3_swsid5_rep0_timed-text-wvtt-fr.cmft   // webvtt French                      
+             presid1_ssid3_swsid6_rep0_timed-text-wvtt-fr.cmft   // webvtt French                      
 ......
 </pre>
 
