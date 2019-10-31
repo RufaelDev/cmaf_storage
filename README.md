@@ -9,23 +9,23 @@ Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO
 A brief and high-level description of CMAF constructs is given.
 For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 
-**CMAF Header**: An ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
+**CMAF Header**: An ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. See [CMAF] 7.3.2.1 
 
-**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. 
+**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. see [CMAF] 7.3.3.2
 
-**CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample.
+**CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample. see [CMAF] 7.3.2.4
 
-**CMAF Segment**: One or more CMAF Fragments.
+**CMAF Segment**: One or more CMAF Fragments. see [CMAF] 7.3.3.1 
 
-**CMAF Track**: A CMAF Header followed by one or more CMAF Fragments.
+**CMAF Track**: A CMAF Header followed by one or more CMAF Fragments. 7.3.2.2
 
-**CMAF Track file**: CMAF Track stored as a file.
+**CMAF Track file**: CMAF Track stored as a file. See [CMAF] 7.3.2.2
 
-**CMAF Switching Set**: One or more CMAF Tracks that a client can switch between. The tracks fullfill the Switching Set constraints defined in CMAF.
+**CMAF Switching Set**: One or more CMAF Tracks that a client can switch between. The tracks fullfill the Switching Set constraints defined in CMAF. see [CMAF] 7.3.4
 
-**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF.
+**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF. see [CMAF] 7.3.
 
-**CMAF Selection Set**: One or more Switching Sets containing different aspects of the presentation (e.g., different codec, different language, etc.).
+**CMAF Selection Set**: One or more Switching sets all of the same media type, e.g. audio, video, or subtitles. Different Switching sets in a selection set may use different codecs or languages other aspects of a presentation. see [CMAF] 7.3.5
 
 **CMAF Presentation**: Combination of one or more CMAF Switching Sets, containing different types of media such as audio, video, subtitles, etc. 
 
@@ -63,10 +63,6 @@ Root folder
                                       timed-text-wvtt-fr.cmft
 ......
 </pre>
-
-In Table 2, the presentation id, switching set id and selection set id are implicitly coded 
-in the filenames instead of the directory structure. In addition, the representation numbers are added in the 
-filenames as well. 
 
 _Table 2: storage format using naming convention_
 <pre>
@@ -107,6 +103,13 @@ The CMAF track files can have optional boxes:
 **emsg**: Optional. Editor's note: Does it make sense for storing cmaf content? emsg would need to be duplicated across switching sets, typically requirements will be different for different types of event messages.
 
 **styp**: Optional. Editor's note: Does it make sense for storing cmaf content ? 
+
+**kind**: optional box to signal the role of the track, for example an mpeg dash role urn:mpeg:dash:role:2011 or a w3c html5 role 
+  about:html-kind
+  
+ **sinf**: This optional box can signal the encryption scheme and default encryption by containing schm box, 
+ and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
+ level encryption instead ? only use common encryption for streaming. **Proposal**: sinf box shall not be present.
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
