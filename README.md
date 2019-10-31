@@ -93,7 +93,7 @@ allowing the filename/directory structure to be generated based on internal trac
 ## CMAF Storage Format: storage using CMAF track files
 
 The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
-The example approach in Table 1 can be presented as a guideline with directives for naming the folders and files.
+The example approach in Table 1 and Table 2 can be presented as a guideline with directives for naming the folders and files.
 A simple manifest for storing content may be defined, if deemed necessary. 
 In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
 selection set or source content that a CMAF track belongs to from individual track files. 
