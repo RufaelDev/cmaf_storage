@@ -9,9 +9,9 @@ Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO
 A brief and high-level description of CMAF constructs is given.
 For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
 
-**CMAF Header**: An ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. 
+**CMAF Header**: An ISOBMFF FiletypeBox and MovieBox. CMAF Header can be used as an initialization segment for a DASH representation. See [CMAF] 7.3.2.1 
 
-**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. see CMAF 7.3.3.2
+**CMAF Chunk**: A MovieFragmentBox indexing media samples and MovieDataBox containing the media samples. see [CMAF] 7.3.3.2
 
 **CMAF Fragment**: One or more CMAF chunks, starting with an IDR or random-access sample. see [CMAF] 7.3.2.4
 
@@ -111,6 +111,13 @@ The CMAF track files can have optional boxes.
 typically requirements will be different for different types of event messages.
 
 **styp**: optional, does it make sense for storing cmaf content ? 
+
+**kind**: optional box to signal the role of the track, for example an mpeg dash role urn:mpeg:dash:role:2011 or a w3c html5 role 
+  about:html-kind
+  
+ **sinf**: This optional box can signal the encryption scheme and default encryption by containing schm box, 
+ and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
+ level encryption instead ? only use common encryption for streaming. Proposal: sinf box shall not be present.
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
