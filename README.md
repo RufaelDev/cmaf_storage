@@ -37,18 +37,18 @@ CMAF resources such as CMAF track files. Based on a single set of CMAF resources
 combining content in a manifest does not require demultiplexing of content. 
 
 ## Proposed CMAF Storage Format 
-The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format.
+The CMAF storage format stores all content as CMAF track files on disk. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames aswell.
 
-_Table 1_
+_Table 1: storage format using directory structuring_
 <pre>
 Root folder
        CMAF_presentation_id_1                     // The Batman movie
               CMAF_selection_set_id_1             // audio
                       CMAF_switching_set_id_1     // aac encoded audio 
-                                      Audio-aac-64k.cmfa
-                                      Audio-aac-128k.cmfa
+                                      audio-aac-64k.cmfa
+                                      audio-aac-128k.cmfa
                        CMAF_switching_set_id_2    // he-aac encoded audio
-                                      Audio-he-aac-64k.cmfa 
+                                      audio-he-aac-64k.cmfa 
                CMAF_selection_set_id_2            // video 
                        CMAF_switching_set_id_3    // avc encoded video
                                       video-avc-400k.cmfv
@@ -65,6 +65,30 @@ Root folder
 ......
 </pre>
 
+In the second table the presentation id, switching set id and selection set id are implicitly coded 
+in the filenames instead of the directory structure. In addition the representation numbers are added in the 
+filename aswell. 
+
+_Table 2: storage format using naming structuring_
+<pre>
+Root folder
+       CMAF_presentation_id_1                                    // The Batman movie
+             presid1_ssid1_swsid1_rep0_audio-aac-64k.cmfa        // aac audio
+             presid1_ssid1_swsid1_rep1_audio-aac-128k.cmfa
+             presid1_ssid1_swsid2_rep0_audio-he-aac-64k.cmfa     // he-aac audio
+             presid1_ssid2_swsid3_rep0_video-avc-400k.cmfv       // video avc
+             presid1_ssid2_swsid3_rep1_video-avc-800k.cmfv
+             presid1_ssid2_swsid3_rep2_video-avc-1200k.cmf
+             presid1_ssid2_swsid4_rep0_video-hevc-1200k.cmfv     // video hevc
+             presid1_ssid2_swsid4_rep1_video-hevc-1600k.cmfv     // video hevc
+             presid1_ssid3_swsid5_rep0_timed-text-wvtt-en.cmft   // webvtt English 
+             presid1_ssid3_swsid5_rep0_timed-text-wvtt-fr.cmft   // webvtt French                      
+......
+</pre>
+
+_Open question_: would it make sense to be able to annotate the track files themselves, 
+allowing the filename/directory structure to be generated based on track files ?
+
 ## CMAF Storage Format: storage using CMAF track files
 
 The CMAF Storage format will define best practices for storing CMAF content on disk using CMAF track files. 
@@ -72,6 +96,16 @@ The example approach in Table 1 can be presented as a guideline with directives 
 A simple manifest for storing content may be defined, if deemed necessary. 
 In addition, annotation of CMAF tracks with metadata may be defined to make it easy to identify the switching set, 
 selection set or source content that a CMAF track belongs to from individual track files. 
+
+## CMAF Storage Format: constraints on optional boxes 
+
+The CMAF track files can have optional boxes. 
+
+**sidx**: (segment index): should (must) be present when storing track files.
+**prft**: optional, what does this add compared to other times in the trackfile about when the media was created ? 
+**emsg**: optional, does it make sense for storing cmaf content ? emsg would need to be duplicated across switching sets, 
+typically requirements will be different for different types of event messages.
+**styp**: optional, does it make sense for storing cmaf content ? 
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
