@@ -117,7 +117,7 @@ typically requirements will be different for different types of event messages.
   
  **sinf**: This optional box can signal the encryption scheme and default encryption by containing schm box, 
  and a schi box containing track encryption box (tenc). **proposal**: store CMAF unencrypted, use storage or transport 
- level encryption instead ? only use common encryption for streaming. Proposal: sinf box shall not be present.
+ level encryption instead ? only use common encryption for streaming. **Proposal**: sinf box shall not be present.
 
 ## Questions and Answers regarding CMAF Storage Format 
 _How can I identify CMAF switching sets from tracks in the CMAF storage format ?_
