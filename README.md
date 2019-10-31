@@ -8,17 +8,18 @@ Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO
 
 Example Workflows and use cases using the CMAF storage format include: 
 
-1. Annotation of large asset collections stored on disk or in the cloud 
-2. Efficient storage of asset collections stored on disk or in the cloud by using a single CMAF source format 
-3. On-the-fly packaging or manifest generation for CMAF stored content 
+1. Storing large asset collections on disk or in the cloud 
+2. Storing assets using a single CMAF source format 
+3. On-the-fly packaging or manifest generation of stored CMAF content 
 4. Sub-clipping and stitching of CMAF stored content 
 5. Searching and identifying content stored on disk or in the cloud
-6. Fast and Granular access to media stored on disk or in cloud
+6. Fast and Granular access to content stored on disk or in the cloud
 
 In each of such workflows a simple manifest can be created to identify the location of source content
 and the grouping of tracks in CMAF constructs. Other tools could be used to read and process the CMAF 
-content for delivery and annotate cmaf tracks with information like bit-rate language and grouping ids. 
-The CMAF file itself structure provides fast and granular access by its fragmented file structure.
+content for delivery and annotate cmaf tracks with additional information like bit-rate language and grouping identifiers. 
+The CMAF track file structure itself structure provides fast and granular access by its fragmented file structure and 
+the segment index box (sidx).
 
 ## CMAF Media Objects 
 
