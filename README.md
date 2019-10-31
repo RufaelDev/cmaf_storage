@@ -6,7 +6,7 @@ Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO
 
 This document explores the possibility of using a CMAF Track file-based content storage format for large asset collections. One of the key aspects to overcome with this format is the lack of explicit grouping of CMAF tracks and the absence of multiplexing in CMAF track files. 
 
-## Example Workflows and use cases for CMAF Storage format
+## Example Workflows and use cases for the CMAF Storage format
 
 Example Workflows and use cases using the CMAF storage format include: 
 
@@ -25,7 +25,7 @@ if this information was not yet available in the track files.
 The CMAF track file structure itself structure provides fast and granular access by its fragmented file structure and 
 the segment index box (sidx).
 
-## CMAF Media Objects Overview
+## CMAF Media Objects Description
 
 A brief and high-level description of CMAF constructs is given.
 For more detailed definitions, refer to ISO/IEC as 23000-19:2018 clause 7.
