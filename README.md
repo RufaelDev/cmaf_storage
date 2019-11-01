@@ -1,6 +1,7 @@
 # Document name: CMAF Storage Format
-### Authors: Rufael Mekuria rufael@unified-streaming.com, 
-###          Ali C. Begen ali.begen@networked.media
+### Authors: 
+### Rufael Mekuria rufael@unified-streaming.com, 
+### Ali C. Begen ali.begen@networked.media
 # CMAF Storage Format 
 
 Common Media Application Track Format (CMAF) [CMAF] has been standardized by ISO/IEC as 23000-19:2018. It defines a segment and track format for streaming content to clients. Common Media Application Track formatted content can be consumed by both DASH and HLS clients. While much industry attention is on the streaming of CMAF content, CMAF can also be interpreted as a base format for storing large collections of content assets. This may especially benefit the content that is stored with the objective to stream it in a later stage to different device types. 
