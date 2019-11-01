@@ -85,7 +85,7 @@ The CMAF track files have optional boxes and fields. For archiving, usage of the
 **sinf**: Optional box to signal the encryption scheme and default encryption by containing schm box, and a schi box containing track encryption box (tenc). **Proposal**: Store CMAF unencrypted, and use storage or transport-level encryption instead (This may not be possible for certain content assets due to contractual requirements). Only use common encryption for streaming. **Proposal**: sinf box shall not be present.
 
 
-## CMAF Storage uUsing Track Files in a Directory and Filename Structure
+## CMAF Storage Using Track Files in a Directory and Filename Structure
 
 The CMAF storage format stores all content as CMAF track files on disk or in the cloud. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames as well as shown in Table 2.
 
