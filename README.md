@@ -86,6 +86,8 @@ The CMAF track files have optional boxes and fields. For archiving, usage of the
 
 **sinf**: Optional box to signal the encryption scheme and default encryption by containing schm box, and a schi box containing track encryption box (tenc). **Proposal**: Store CMAF unencrypted, and use storage or transport-level encryption instead (This may not be possible for certain content assets due to contractual requirements). Only use common encryption for streaming. **Proposal**: sinf box shall not be present.
 
+**elst**: Optional. Edit lists are allowed in CMAF. They can be used to offset the composition times of all samples in the track. 
+_Editors note_: CMAF track files need to start at presentation time 0 according to the spec, this seems arbitrary especially when archiving live content. Would it make sense to create this offset using an editlist or should one ignore this requirement and instead assume common timeline origin instead ? 
 
 ## CMAF Storage Using Track Files in a Directory and Filename Structure
 
