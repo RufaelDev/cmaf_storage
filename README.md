@@ -35,19 +35,19 @@ A brief and high-level description of CMAF constructs is given. For more detaile
 
 **CMAF Track**: A CMAF Header followed by one or more CMAF Fragments. 7.3.2.2.
 
-**CMAF Track file**: CMAF Track stored as a file. See [CMAF] 7.3.2.2.
+**CMAF Track file**: CMAF Track stored as a file. See [CMAF] 7.3.3.3.
 
 **CMAF Switching Set**: One or more CMAF Tracks that a client can switch between. The tracks fullfill the Switching Set constraints defined in CMAF. See [CMAF] 7.3.4.
 
-**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF. See [CMAF] 7.3.
+**CMAF Aligned Switching Set**: One or more CMAF Switching Sets with aligned switching points, the same media type and the same original source content. The tracks fullfill the aligned Switching Set constraints defined in CMAF. See [CMAF] 7.3.4.4.
 
 **CMAF Selection Set**: One or more Switching Sets all of the same media type, e.g., audio, video, or subtitles. Different Switching Sets in a Selection Set may use different codecs, languages or other aspects of a presentation. See [CMAF] 7.3.5.
 
 **CMAF Presentation**: Combination of one or more CMAF Switching Sets, containing different types of media such as audio, video and subtitles.
 
-## Storing CMAF Media Objects 
+## Storing CMAF Media Objects and Late Binding 
 
-The main construct for storing content defined in CMAF is the CMAF track file. As CMAF track files are not multiplexed, storing content using CMAF would imply storing each media track in a separate file. CMAF is designed in a way that the manifest file can combine different CMAF resources such as CMAF track files (instead of the file format itself as in MP4 that can multiplex different tracks). Based on a single set of CMAF resources, different manifests can reference different combinations of CMAF resources. Combining CMAF track files this way is referred to as late binding in CMAF.
+The main construct for storing content defined in CMAF is the CMAF track file. As CMAF track files are not multiplexed, storing content using CMAF would imply storing each media track in a separate file. CMAF is designed in a way that the manifest file can combine different CMAF resources such as CMAF track files (instead of the file format itself as in MP4 that can multiplex different tracks). Based on a single set of CMAF resources, different manifests can reference different combinations. Combining CMAF track files this way is referred to as late binding in CMAF.
 
 ## CMAF Storage Format: Storage Using CMAF Track Files
 
@@ -72,11 +72,11 @@ The CMAF track files have optional boxes and fields. For archiving, usage of the
 
 **emsg**: Recommended. Consider specific schemes of emsg for inserting metadata or information about the program. emsg will be duplicated across switching sets. Some emsg may contain program information, metadata or splice point information. Alternatively, emsg information could be filtered out and stored in a separate track.
 
-**styp**: Optional. styp may be stored in case this benefits one's streaming workflow. This box is optional in CMAF and can be used to identify segment types such as chunk, fragment, or random access.
+**styp**: Optional. styp may be stored in case this benefits one's streaming workflow. This box is optional in CMAF and can be used to identify CMAF media object types such as a chunk, fragment, or random access chunk.
 
 **kind**: Optional box to signal the role of the track, for example an MPEG DAH role urn:mpeg:dash:role:2011 or a W3C HTML5 role. It is recommended to use the kind box in udta to signal track role as defined in [CMAF] 7.5.3. 
 
-**btrt**: This box can be put in the sample entry (stsd) to store the bitrate of the track. This information is useful to store as it can be used later in manifests for example. 
+**btrt**: This box can be put in the sample entry (stsd) to store the bitrate of the track (both average and maximum). This information is useful to store as it can be used later in manifests for example. 
 
 **elng**: Extended language tag may be used to signal the language of the CMAF track.
 
@@ -87,7 +87,7 @@ The CMAF track files have optional boxes and fields. For archiving, usage of the
 
 ## CMAF Storage Using Track Files in a Directory and Filename Structure
 
-The CMAF storage format stores all content as CMAF track files on disk or in the cloud. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on directory structure, ids could be embedded in the filenames as well as shown in Table 2.
+The CMAF storage format stores all content as CMAF track files on disk or in the cloud. The combination of these CMAF tracks should conform to be a CMAF presentation. Table 1 illustrates a possible file storage structure for the storage format. Instead of naming based on the directory structure, identification could be embedded in the filenames as well as shown in Table 2.
 
 _Table 1: storage format using directory structuring_
 <pre>
@@ -139,7 +139,7 @@ _Editor's note_: Would it make sense to be able to annotate the track files them
 
 ## CMAF Storage Using an XML Schema for CMAF Content
 
-A possible XML schema for storing the CMAF stored files is as follows: 
+A possible XML schema for storing the CMAF stored files based on the CMAF hierarchy is as follows: 
 
 _Table 3: storage format example XML naming scheme_
 ```xml
@@ -253,18 +253,18 @@ _Table 4: example XML representation of CMAF stored content in Table 2_
 </CMAFStorage>
 ```
 
-_Editor's note_: This schema could be exapnded to carry additional information about the presentation, for example, the ids.
+_Editor's note_: This schema could be expanded to carry additional information about the presentation, for example, the identifiers.
 
 
 ## Additional Questions and Answers Regarding CMAF Track Storage Format in General
 _How can one identify CMAF switching sets from tracks in the CMAF Tracks?_
 
-CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content, one could identify switching sets implicitly based on the CMAF track format constraints. Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. CMAF storage format may define additional (in-band or out-of-band) signalling to identify switchingset grouping of track files. It is better to use the switching set definitions from the original author instead of based on technical features, as to preserve
-the original author's intent. This feature is supported by this storage format making the track grouping explicit.
+CMAF defines switching set constraints, 7.3.4 Table 11, if tracks are representing the same content, one could identify switching sets implicitly based on the CMAF track format constraints. Tracks with the same source content and same codec fulfilling the switching set constraints can be implicitly derived as being part of the same switching set. CMAF storage format may define additional (in-band or out-of-band) signalling to identify switchingset grouping of track files. It is better to use the switching set definition from the original author instead of based on technical features, as to preserve
+the original author's intent. This feature is aimed to be supported by this storage format to make the track grouping explicit.
 
 _How can one identify selection sets and/or aligned switching sets from CMAF Tracks ?_ 
 
-CMAF defines requirements 7.3.4.4 for aligned switching sets, but these are harder to use for detecting and identifying them, as it is not clear if it makes sense for different codecs. Selection sets may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). CMAF storage format may define additional signalling to identify aligned switching set grouping of track files and selection set grouping of track files.
+CMAF defines requirements 7.3.4.4 for aligned switching sets, but these are harder to use for detecting and identifying them, as it is not clear if it makes sense for different media types. Selection set may be the default for different switching sets with the same media type (different language subtitles, different video codecs, different audio codecs). The CMAF storage format may define additional signalling to identify aligned switching set grouping of track files and selection set grouping of track files.
 
 _How can one identify if CMAF tracks are based on the same source content ?_
 
@@ -272,8 +272,11 @@ Due to storing tracks in separate files, it can be unclear if tracks are based o
 
 _How can CMAF stored content be delivered ?_ 
 
-A manifest is needed to deliver the content. One way to produce the manifest is to use a DASH/HLS packager tool. Based on the CMAF storage format, additional tools may be developed for generating manifests from the source content. For example, HLS and DASH manifests could be generated automatically for a stored CMAF presentation. Alternatively, annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting individual CMAF fragments [CMAF ingest].
-The CMAF storage defined XML format may be used to store CMAF presentations.
+A manifest is needed to deliver the content. One way to produce the manifest is to use a DASH/HLS packager tool. 
+Based on the CMAF storage format, additional tools may be developed for generating manifests from the source content. 
+For example, HLS and DASH manifests could be generated automatically for a stored CMAF presentation. 
+Alternatively, annotated CMAF tracks can be posted to a publishing point, such as using CMAF ingest by posting 
+individual CMAF fragments [CMAF ingest].
 
 [CMAF] ISO/IEC 23000-19:2018
 Information technology — Multimedia application format (MPEG-A) — Part 19: Common media application format (CMAF) for segmented media
